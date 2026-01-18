@@ -1,0 +1,380 @@
+import pandas as pd
+
+# Comprehensive interview questions dataset for 30+ job roles
+dataset = [
+    # Python Developer (10 questions)
+    {title: "Python Developer", q: "Explain the difference between Python lists and tuples", keywords: "list, tuple, mutable, immutable, memory", dif: "Medium"},
+    {title: "Python Developer", q: "What are Python decorators and how do you use them?", keywords: "decorator, function, wrapper, @, modify", dif: "Medium"},
+    {title: "Python Developer", q: "How do you handle exceptions in Python?", keywords: "try, except, finally, raise, error", dif: "Easy"},
+    {title: "Python Developer", q: "Explain the concept of generators in Python", keywords: "yield, iterator, memory, lazy, efficient", dif: "Hard"},
+    {title: "Python Developer", q: "What is the difference between __init__ and __new__ methods?", keywords: "constructor, instance, object, initialization", dif: "Hard"},
+    {title: "Python Developer", q: "How does garbage collection work in Python?", keywords: "reference, counting, memory, cleanup, cycle", dif: "Medium"},
+    {title: "Python Developer", q: "Explain multithreading vs multiprocessing in Python", keywords: "thread, process, GIL, parallel, concurrent", dif: "Hard"},
+    {title: "Python Developer", q: "What are Python's *args and **kwargs?", keywords: "arguments, variable, parameters, unpacking", dif: "Easy"},
+    {title: "Python Developer", q: "How do you optimize Python code for performance?", keywords: "profiling, bottleneck, algorithm, data structure, caching", dif: "Medium"},
+    {title: "Python Developer", q: "Explain context managers and the with statement", keywords: "context, resource, cleanup, __enter__, __exit__", dif: "Medium"},
+    
+    # Data Analyst (10 questions)
+    {title: "Data Analyst", q: "Explain the difference between INNER JOIN and LEFT JOIN in SQL", keywords: "inner, left, join, rows, matching, null", dif: "Easy"},
+    {title: "Data Analyst", q: "What is normalization in databases and why is it important?", keywords: "normalization, redundancy, tables, integrity, dependency", dif: "Medium"},
+    {title: "Data Analyst", q: "How would you handle missing data in a dataset?", keywords: "missing, null, imputation, drop, mean, median", dif: "Easy"},
+    {title: "Data Analyst", q: "Explain the difference between correlation and causation", keywords: "correlation, causation, relationship, statistical, confounding", dif: "Medium"},
+    {title: "Data Analyst", q: "What is the purpose of data visualization and which tools do you use?", keywords: "visualization, charts, tableau, powerbi, matplotlib, insights", dif: "Easy"},
+    {title: "Data Analyst", q: "How do you identify and handle outliers in data?", keywords: "outliers, IQR, standard deviation, detection, remove", dif: "Medium"},
+    {title: "Data Analyst", q: "Explain the ETL process", keywords: "extract, transform, load, pipeline, data warehouse", dif: "Medium"},
+    {title: "Data Analyst", q: "What are window functions in SQL and when would you use them?", keywords: "window, partition, rank, row_number, aggregate", dif: "Hard"},
+    {title: "Data Analyst", q: "How do you ensure data quality in your analysis?", keywords: "validation, consistency, accuracy, completeness, integrity", dif: "Medium"},
+    {title: "Data Analyst", q: "Describe a time when you had to present complex data findings to non-technical stakeholders", keywords: "communication, visualization, simplify, storytelling, insights", dif: "Easy"},
+    
+    # Data Scientist (10 questions)
+    {title: "Data Scientist", q: "Explain the bias-variance tradeoff", keywords: "bias, variance, tradeoff, overfitting, underfitting, model", dif: "Hard"},
+    {title: "Data Scientist", q: "What is the difference between supervised and unsupervised learning?", keywords: "supervised, unsupervised, labeled, clustering, classification", dif: "Easy"},
+    {title: "Data Scientist", q: "How do you evaluate a machine learning model?", keywords: "accuracy, precision, recall, F1, confusion matrix, ROC", dif: "Medium"},
+    {title: "Data Scientist", q: "Explain cross-validation and why it is important", keywords: "cross-validation, k-fold, overfitting, generalization, testing", dif: "Medium"},
+    {title: "Data Scientist", q: "What is regularization and when would you use it?", keywords: "regularization, L1, L2, overfitting, penalty, ridge, lasso", dif: "Hard"},
+    {title: "Data Scientist", q: "Describe the Random Forest algorithm", keywords: "random forest, trees, ensemble, bagging, feature importance", dif: "Medium"},
+    {title: "Data Scientist", q: "How do you handle imbalanced datasets?", keywords: "imbalanced, SMOTE, undersampling, oversampling, class weight", dif: "Hard"},
+    {title: "Data Scientist", q: "Explain dimensionality reduction techniques", keywords: "PCA, t-SNE, dimensionality, features, curse, compression", dif: "Hard"},
+    {title: "Data Scientist", q: "What is the difference between bagging and boosting?", keywords: "bagging, boosting, ensemble, parallel, sequential, weak learners", dif: "Hard"},
+    {title: "Data Scientist", q: "How do you deploy a machine learning model to production?", keywords: "deployment, API, docker, monitoring, pipeline, serving", dif: "Medium"},
+    
+    # Machine Learning Engineer (10 questions)
+    {title: "Machine Learning Engineer", q: "Explain the architecture of a neural network", keywords: "neural, layers, activation, weights, forward, backward", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "What is gradient descent and how does it work?", keywords: "gradient, descent, optimization, learning rate, convergence", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "How do you optimize hyperparameters?", keywords: "hyperparameter, grid search, random search, bayesian, tuning", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "Explain transfer learning and its benefits", keywords: "transfer, pretrained, fine-tuning, features, weights", dif: "Hard"},
+    {title: "Machine Learning Engineer", q: "What is the difference between batch and online learning?", keywords: "batch, online, streaming, incremental, real-time", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "How do you handle feature engineering?", keywords: "feature, engineering, selection, extraction, transformation", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "Explain the concept of attention mechanism in deep learning", keywords: "attention, transformer, weights, context, sequence", dif: "Hard"},
+    {title: "Machine Learning Engineer", q: "What are the challenges in deploying ML models at scale?", keywords: "scalability, latency, monitoring, versioning, infrastructure", dif: "Hard"},
+    {title: "Machine Learning Engineer", q: "How do you prevent overfitting in neural networks?", keywords: "overfitting, dropout, regularization, early stopping, validation", dif: "Medium"},
+    {title: "Machine Learning Engineer", q: "Explain the difference between CNNs and RNNs", keywords: "CNN, RNN, convolutional, recurrent, image, sequence", dif: "Hard"},
+    
+    # Web Developer (10 questions)
+    {title: "Web Developer", q: "Explain the difference between HTML, CSS, and JavaScript", keywords: "HTML, CSS, JavaScript, structure, styling, behavior", dif: "Easy"},
+    {title: "Web Developer", q: "What is responsive web design?", keywords: "responsive, mobile, breakpoints, media queries, flexible", dif: "Easy"},
+    {title: "Web Developer", q: "Explain the concept of REST APIs", keywords: "REST, API, HTTP, GET, POST, PUT, DELETE, stateless", dif: "Medium"},
+    {title: "Web Developer", q: "What is the difference between == and === in JavaScript?", keywords: "equality, strict, type, coercion, comparison", dif: "Easy"},
+    {title: "Web Developer", q: "How do you optimize website performance?", keywords: "performance, caching, minification, compression, lazy loading", dif: "Medium"},
+    {title: "Web Developer", q: "Explain the concept of promises in JavaScript", keywords: "promise, async, await, callback, asynchronous", dif: "Medium"},
+    {title: "Web Developer", q: "What is CORS and why is it important?", keywords: "CORS, cross-origin, security, browser, headers", dif: "Medium"},
+    {title: "Web Developer", q: "Describe the MVC architecture pattern", keywords: "MVC, model, view, controller, separation, architecture", dif: "Medium"},
+    {title: "Web Developer", q: "How do you ensure web accessibility?", keywords: "accessibility, ARIA, semantic, screen reader, WCAG", dif: "Medium"},
+    {title: "Web Developer", q: "What are web components and how do you use them?", keywords: "web components, custom elements, shadow DOM, reusable", dif: "Hard"},
+    
+    # Java Developer (10 questions)
+    {title: "Java Developer", q: "Explain the concept of Object-Oriented Programming", keywords: "OOP, encapsulation, inheritance, polymorphism, abstraction", dif: "Easy"},
+    {title: "Java Developer", q: "What is the difference between abstract class and interface?", keywords: "abstract, interface, implementation, multiple inheritance", dif: "Medium"},
+    {title: "Java Developer", q: "Explain the Java memory model", keywords: "heap, stack, garbage collection, memory, JVM", dif: "Hard"},
+    {title: "Java Developer", q: "What are Java streams and how do you use them?", keywords: "streams, lambda, functional, filter, map, collect", dif: "Medium"},
+    {title: "Java Developer", q: "Explain exception handling in Java", keywords: "exception, try, catch, finally, throw, checked, unchecked", dif: "Easy"},
+    {title: "Java Developer", q: "What is the difference between ArrayList and LinkedList?", keywords: "ArrayList, LinkedList, performance, insertion, retrieval", dif: "Medium"},
+    {title: "Java Developer", q: "Explain multithreading in Java", keywords: "thread, concurrent, synchronized, executor, parallel", dif: "Hard"},
+    {title: "Java Developer", q: "What is the Spring Framework and why is it used?", keywords: "Spring, dependency injection, IoC, framework, enterprise", dif: "Medium"},
+    {title: "Java Developer", q: "Explain the SOLID principles", keywords: "SOLID, single responsibility, open-closed, Liskov, interface, dependency", dif: "Hard"},
+    {title: "Java Developer", q: "What is JUnit and how do you write unit tests?", keywords: "JUnit, testing, assertions, mock, test-driven", dif: "Medium"},
+    
+    # DevOps Engineer (10 questions)
+    {title: "DevOps Engineer", q: "Explain the CI/CD pipeline", keywords: "CI, CD, continuous, integration, deployment, automation", dif: "Medium"},
+    {title: "DevOps Engineer", q: "What is Docker and how does it work?", keywords: "Docker, container, image, isolation, lightweight", dif: "Medium"},
+    {title: "DevOps Engineer", q: "Explain the difference between Docker and Kubernetes", keywords: "Docker, Kubernetes, orchestration, container, scaling", dif: "Medium"},
+    {title: "DevOps Engineer", q: "What is Infrastructure as Code?", keywords: "IaC, Terraform, Ansible, automation, configuration", dif: "Medium"},
+    {title: "DevOps Engineer", q: "How do you monitor applications in production?", keywords: "monitoring, Prometheus, Grafana, logs, metrics, alerts", dif: "Medium"},
+    {title: "DevOps Engineer", q: "Explain the concept of microservices", keywords: "microservices, architecture, distributed, independent, scalable", dif: "Hard"},
+    {title: "DevOps Engineer", q: "What is blue-green deployment?", keywords: "blue-green, deployment, zero-downtime, rollback, production", dif: "Medium"},
+    {title: "DevOps Engineer", q: "How do you ensure security in DevOps?", keywords: "DevSecOps, security, scanning, vulnerability, compliance", dif: "Hard"},
+    {title: "DevOps Engineer", q: "Explain the concept of service mesh", keywords: "service mesh, Istio, microservices, communication, observability", dif: "Hard"},
+    {title: "DevOps Engineer", q: "What is GitOps and how does it work?", keywords: "GitOps, Git, declarative, automation, infrastructure", dif: "Medium"},
+    
+    # Marketing Executive (10 questions)
+    {title: "Marketing Executive", q: "What strategies would you use to increase brand awareness?", keywords: "brand, awareness, social media, campaigns, SEO, content", dif: "Easy"},
+    {title: "Marketing Executive", q: "Explain the concept of SEO", keywords: "SEO, search engine, keywords, ranking, optimization", dif: "Easy"},
+    {title: "Marketing Executive", q: "How do you handle a failed marketing campaign?", keywords: "learn, analyze, feedback, pivot, metrics, improvement", dif: "Medium"},
+    {title: "Marketing Executive", q: "What is the difference between B2B and B2C marketing?", keywords: "B2B, B2C, business, consumer, strategy, decision", dif: "Easy"},
+    {title: "Marketing Executive", q: "How do you measure marketing ROI?", keywords: "ROI, metrics, conversion, revenue, cost, analytics", dif: "Medium"},
+    {title: "Marketing Executive", q: "Explain the marketing funnel", keywords: "funnel, awareness, consideration, conversion, retention", dif: "Medium"},
+    {title: "Marketing Executive", q: "What is content marketing and why is it important?", keywords: "content, marketing, value, engagement, audience, storytelling", dif: "Easy"},
+    {title: "Marketing Executive", q: "How do you segment your target audience?", keywords: "segmentation, demographics, psychographics, behavior, targeting", dif: "Medium"},
+    {title: "Marketing Executive", q: "Describe your experience with email marketing campaigns", keywords: "email, campaign, open rate, click-through, personalization", dif: "Easy"},
+    {title: "Marketing Executive", q: "How do you stay updated with marketing trends?", keywords: "trends, learning, research, industry, networking, tools", dif: "Easy"},
+    
+    # Sales Executive (10 questions)
+    {title: "Sales Executive", q: "How do you qualify a lead?", keywords: "lead, qualification, BANT, budget, authority, need, timeline", dif: "Medium"},
+    {title: "Sales Executive", q: "Describe your sales process from prospecting to closing", keywords: "prospecting, pitch, objections, negotiation, closing, follow-up", dif: "Medium"},
+    {title: "Sales Executive", q: "How do you handle customer objections?", keywords: "objections, listen, empathy, solutions, value, concerns", dif: "Medium"},
+    {title: "Sales Executive", q: "What CRM tools have you used?", keywords: "CRM, Salesforce, HubSpot, tracking, pipeline, customer", dif: "Easy"},
+    {title: "Sales Executive", q: "How do you maintain relationships with existing clients?", keywords: "relationship, retention, communication, value, upsell, cross-sell", dif: "Easy"},
+    {title: "Sales Executive", q: "Describe a time when you exceeded your sales targets", keywords: "targets, achievement, strategy, persistence, results, metrics", dif: "Medium"},
+    {title: "Sales Executive", q: "How do you prioritize your sales activities?", keywords: "prioritization, time management, high-value, pipeline, productivity", dif: "Medium"},
+    {title: "Sales Executive", q: "What is consultative selling?", keywords: "consultative, needs, solutions, advisor, relationship, trust", dif: "Medium"},
+    {title: "Sales Executive", q: "How do you recover from a lost deal?", keywords: "resilience, learn, feedback, improvement, move forward", dif: "Easy"},
+    {title: "Sales Executive", q: "Explain the importance of active listening in sales", keywords: "listening, understanding, needs, questions, rapport, empathy", dif: "Easy"},
+    
+    # HR Executive (10 questions)
+    {title: "HR Executive", q: "How do you handle employee conflicts?", keywords: "conflict, mediation, communication, resolution, fair, neutral", dif: "Medium"},
+    {title: "HR Executive", q: "Explain the recruitment process you follow", keywords: "recruitment, sourcing, screening, interview, selection, onboarding", dif: "Easy"},
+    {title: "HR Executive", q: "What is employee engagement and why is it important?", keywords: "engagement, motivation, retention, productivity, culture, satisfaction", dif: "Medium"},
+    {title: "HR Executive", q: "How do you ensure diversity and inclusion in the workplace?", keywords: "diversity, inclusion, equity, policies, culture, awareness", dif: "Medium"},
+    {title: "HR Executive", q: "Describe your experience with performance management", keywords: "performance, appraisal, feedback, goals, development, review", dif: "Medium"},
+    {title: "HR Executive", q: "How do you handle employee terminations?", keywords: "termination, documentation, legal, dignity, communication, exit", dif: "Hard"},
+    {title: "HR Executive", q: "What is your approach to employee training and development?", keywords: "training, development, skills, learning, growth, programs", dif: "Medium"},
+    {title: "HR Executive", q: "How do you maintain confidentiality in HR?", keywords: "confidentiality, trust, privacy, sensitive, ethics, policies", dif: "Easy"},
+    {title: "HR Executive", q: "Explain the importance of employer branding", keywords: "employer brand, reputation, talent, attraction, culture, value", dif: "Medium"},
+    {title: "HR Executive", q: "How do you manage employee benefits and compensation?", keywords: "benefits, compensation, competitive, fair, packages, satisfaction", dif: "Medium"},
+    
+    # UI/UX Designer (10 questions)
+    {title: "UI/UX Designer", q: "Explain the difference between UI and UX design", keywords: "UI, UX, interface, experience, visual, usability", dif: "Easy"},
+    {title: "UI/UX Designer", q: "What is your design process?", keywords: "research, wireframe, prototype, testing, iteration, feedback", dif: "Medium"},
+    {title: "UI/UX Designer", q: "How do you conduct user research?", keywords: "research, interview, survey, persona, observation, data", dif: "Medium"},
+    {title: "UI/UX Designer", q: "What design tools do you use?", keywords: "Figma, Sketch, Adobe XD, prototyping, collaboration", dif: "Easy"},
+    {title: "UI/UX Designer", q: "Explain the concept of information architecture", keywords: "information architecture, structure, navigation, hierarchy, organization", dif: "Medium"},
+    {title: "UI/UX Designer", q: "How do you ensure your designs are accessible?", keywords: "accessibility, WCAG, inclusive, contrast, keyboard, screen reader", dif: "Medium"},
+    {title: "UI/UX Designer", q: "What is A/B testing and how do you use it?", keywords: "A/B testing, experiment, variants, data, optimization, conversion", dif: "Medium"},
+    {title: "UI/UX Designer", q: "Describe a challenging design problem you solved", keywords: "problem, solution, user needs, constraints, iteration, impact", dif: "Hard"},
+    {title: "UI/UX Designer", q: "How do you handle design feedback?", keywords: "feedback, open-minded, rationale, collaboration, improvement", dif: "Easy"},
+    {title: "UI/UX Designer", q: "Explain the importance of design systems", keywords: "design system, consistency, components, scalability, efficiency", dif: "Medium"},
+    
+    # Project Manager (10 questions)
+    {title: "Project Manager", q: "What project management methodologies do you use?", keywords: "Agile, Scrum, Waterfall, Kanban, methodology, framework", dif: "Easy"},
+    {title: "Project Manager", q: "How do you handle scope creep?", keywords: "scope creep, change management, documentation, stakeholder, baseline", dif: "Medium"},
+    {title: "Project Manager", q: "Explain the critical path method", keywords: "critical path, dependencies, timeline, project schedule, duration", dif: "Hard"},
+    {title: "Project Manager", q: "How do you manage project risks?", keywords: "risk, identification, assessment, mitigation, contingency, monitoring", dif: "Medium"},
+    {title: "Project Manager", q: "What tools do you use for project management?", keywords: "Jira, Trello, Asana, MS Project, tools, tracking", dif: "Easy"},
+    {title: "Project Manager", q: "How do you communicate with stakeholders?", keywords: "communication, stakeholder, updates, transparency, meetings, reports", dif: "Medium"},
+    {title: "Project Manager", q: "Describe a time when a project failed and what you learned", keywords: "failure, lessons, reflection, improvement, accountability", dif: "Hard"},
+    {title: "Project Manager", q: "How do you motivate your team?", keywords: "motivation, leadership, recognition, empowerment, support, goals", dif: "Medium"},
+    {title: "Project Manager", q: "What is the project management triangle?", keywords: "triangle, scope, time, cost, quality, constraints, balance", dif: "Medium"},
+    {title: "Project Manager", q: "How do you manage remote or distributed teams?", keywords: "remote, communication, tools, timezone, collaboration, trust", dif: "Medium"},
+    
+    # Business Analyst (10 questions)
+    {title: "Business Analyst", q: "What is requirements gathering and how do you do it?", keywords: "requirements, stakeholder, elicitation, documentation, analysis", dif: "Medium"},
+    {title: "Business Analyst", q: "Explain the difference between functional and non-functional requirements", keywords: "functional, non-functional, performance, usability, requirements", dif: "Medium"},
+    {title: "Business Analyst", q: "What is SWOT analysis?", keywords: "SWOT, strengths, weaknesses, opportunities, threats, strategic", dif: "Easy"},
+    {title: "Business Analyst", q: "How do you create use cases?", keywords: "use case, actor, scenario, flow, documentation, interaction", dif: "Medium"},
+    {title: "Business Analyst", q: "What tools do you use for business analysis?", keywords: "tools, Visio, Excel, JIRA, documentation, modeling", dif: "Easy"},
+    {title: "Business Analyst", q: "How do you handle conflicting stakeholder requirements?", keywords: "conflict, prioritization, negotiation, compromise, consensus", dif: "Hard"},
+    {title: "Business Analyst", q: "Explain the concept of process mapping", keywords: "process, mapping, flowchart, workflow, improvement, optimization", dif: "Medium"},
+    {title: "Business Analyst", q: "What is gap analysis?", keywords: "gap, current state, future state, analysis, improvement", dif: "Medium"},
+    {title: "Business Analyst", q: "How do you validate requirements?", keywords: "validation, review, stakeholder, testing, acceptance, criteria", dif: "Medium"},
+    {title: "Business Analyst", q: "Describe your experience with Agile BA practices", keywords: "Agile, user stories, backlog, sprint, iterative, collaboration", dif: "Medium"},
+    
+    # QA Engineer (10 questions)
+    {title: "QA Engineer", q: "What is the difference between manual and automation testing?", keywords: "manual, automation, testing, efficiency, repetitive, exploratory", dif: "Easy"},
+    {title: "QA Engineer", q: "Explain the software testing life cycle", keywords: "STLC, planning, design, execution, reporting, closure", dif: "Medium"},
+    {title: "QA Engineer", q: "What automation tools have you used?", keywords: "Selenium, Cypress, Playwright, JUnit, TestNG, automation", dif: "Easy"},
+    {title: "QA Engineer", q: "How do you write test cases?", keywords: "test case, scenario, steps, expected, actual, coverage", dif: "Easy"},
+    {title: "QA Engineer", q: "What is regression testing?", keywords: "regression, testing, changes, existing, functionality, bugs", dif: "Easy"},
+    {title: "QA Engineer", q: "Explain the difference between smoke and sanity testing", keywords: "smoke, sanity, testing, build, critical, functionality", dif: "Medium"},
+    {title: "QA Engineer", q: "How do you prioritize testing activities?", keywords: "prioritization, risk, critical, impact, resources, time", dif: "Medium"},
+    {title: "QA Engineer", q: "What is API testing and how do you perform it?", keywords: "API, testing, Postman, REST, endpoints, validation", dif: "Medium"},
+    {title: "QA Engineer", q: "How do you report and track bugs?", keywords: "bug, report, JIRA, severity, priority, reproduction, tracking", dif: "Easy"},
+    {title: "QA Engineer", q: "Explain performance testing and its types", keywords: "performance, load, stress, scalability, response time, testing", dif: "Hard"},
+    
+    # Digital Marketing Specialist (10 questions)
+    {title: "Digital Marketing Specialist", q: "What is PPC advertising and how does it work?", keywords: "PPC, pay-per-click, ads, Google Ads, bidding, keywords", dif: "Easy"},
+    {title: "Digital Marketing Specialist", q: "How do you measure the success of a digital campaign?", keywords: "KPI, metrics, ROI, conversion, engagement, analytics", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "Explain Google Analytics and how you use it", keywords: "Google Analytics, traffic, behavior, conversion, tracking, insights", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "What is remarketing and how does it work?", keywords: "remarketing, retargeting, cookies, pixel, ads, conversion", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "How do you optimize landing pages for conversions?", keywords: "landing page, CRO, A/B testing, CTA, optimization, conversion", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "What is marketing automation?", keywords: "automation, workflow, email, nurturing, CRM, personalization", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "Explain social media advertising strategies", keywords: "social media, Facebook, Instagram, targeting, engagement, ads", dif: "Easy"},
+    {title: "Digital Marketing Specialist", q: "How do you conduct keyword research for SEO?", keywords: "keyword, research, SEO, search volume, competition, intent", dif: "Medium"},
+    {title: "Digital Marketing Specialist", q: "What is influencer marketing?", keywords: "influencer, collaboration, reach, authenticity, social proof", dif: "Easy"},
+    {title: "Digital Marketing Specialist", q: "How do you stay updated with digital marketing trends?", keywords: "trends, learning, blogs, webinars, testing, industry", dif: "Easy"},
+    
+    # Content Writer (10 questions)
+    {title: "Content Writer", q: "What is your content creation process?", keywords: "research, outline, draft, editing, proofreading, publishing", dif: "Easy"},
+    {title: "Content Writer", q: "How do you write SEO-friendly content?", keywords: "SEO, keywords, meta, readability, structure, optimization", dif: "Medium"},
+    {title: "Content Writer", q: "Explain the importance of storytelling in content", keywords: "storytelling, narrative, engagement, emotion, connection, audience", dif: "Medium"},
+    {title: "Content Writer", q: "How do you adapt your writing style for different audiences?", keywords: "audience, tone, voice, adaptation, demographics, purpose", dif: "Medium"},
+    {title: "Content Writer", q: "What tools do you use for content writing?", keywords: "Grammarly, Hemingway, WordPress, Google Docs, tools", dif: "Easy"},
+    {title: "Content Writer", q: "How do you handle writer's block?", keywords: "creativity, break, research, inspiration, brainstorming", dif: "Easy"},
+    {title: "Content Writer", q: "What is content strategy?", keywords: "strategy, planning, goals, audience, calendar, distribution", dif: "Medium"},
+    {title: "Content Writer", q: "How do you measure content performance?", keywords: "analytics, engagement, traffic, conversion, metrics, ROI", dif: "Medium"},
+    {title: "Content Writer", q: "Describe your experience with different content formats", keywords: "blog, article, social, email, video script, whitepaper", dif: "Easy"},
+    {title: "Content Writer", q: "How do you ensure content originality and avoid plagiarism?", keywords: "originality, plagiarism, research, citation, tools, ethics", dif: "Easy"},
+    
+    # Graphic Designer (10 questions)
+    {title: "Graphic Designer", q: "What design software do you use?", keywords: "Adobe, Photoshop, Illustrator, InDesign, Figma, software", dif: "Easy"},
+    {title: "Graphic Designer", q: "Explain the principles of design", keywords: "balance, contrast, hierarchy, alignment, proximity, repetition", dif: "Medium"},
+    {title: "Graphic Designer", q: "What is your design process from concept to final delivery?", keywords: "brief, research, sketches, iterations, feedback, delivery", dif: "Medium"},
+    {title: "Graphic Designer", q: "How do you choose color palettes for a project?", keywords: "color, psychology, brand, contrast, harmony, mood", dif: "Medium"},
+    {title: "Graphic Designer", q: "What is typography and why is it important?", keywords: "typography, fonts, readability, hierarchy, design, communication", dif: "Easy"},
+    {title: "Graphic Designer", q: "How do you handle design revisions and client feedback?", keywords: "feedback, revisions, communication, flexibility, professional", dif: "Easy"},
+    {title: "Graphic Designer", q: "Explain the difference between raster and vector graphics", keywords: "raster, vector, pixels, scalability, resolution, formats", dif: "Medium"},
+    {title: "Graphic Designer", q: "How do you stay inspired and updated with design trends?", keywords: "inspiration, trends, Behance, Dribbble, learning, experimentation", dif: "Easy"},
+    {title: "Graphic Designer", q: "What is brand identity and how do you create it?", keywords: "brand, identity, logo, guidelines, consistency, visual", dif: "Medium"},
+    {title: "Graphic Designer", q: "Describe a challenging design project you completed", keywords: "challenge, solution, creativity, constraints, outcome, learning", dif: "Medium"},
+    
+    # Cloud Engineer (10 questions)
+    {title: "Cloud Engineer", q: "What cloud platforms have you worked with?", keywords: "AWS, Azure, GCP, cloud, platform, experience", dif: "Easy"},
+    {title: "Cloud Engineer", q: "Explain the difference between IaaS, PaaS, and SaaS", keywords: "IaaS, PaaS, SaaS, infrastructure, platform, software, service", dif: "Medium"},
+    {title: "Cloud Engineer", q: "How do you ensure cloud security?", keywords: "security, IAM, encryption, compliance, monitoring, best practices", dif: "Hard"},
+    {title: "Cloud Engineer", q: "What is auto-scaling and how does it work?", keywords: "auto-scaling, elasticity, load, resources, automatic, efficiency", dif: "Medium"},
+    {title: "Cloud Engineer", q: "Explain serverless computing", keywords: "serverless, Lambda, functions, event-driven, managed, scalable", dif: "Medium"},
+    {title: "Cloud Engineer", q: "How do you optimize cloud costs?", keywords: "cost, optimization, reserved, spot, monitoring, rightsizing", dif: "Medium"},
+    {title: "Cloud Engineer", q: "What is a VPC and why is it important?", keywords: "VPC, virtual, network, isolation, subnets, security", dif: "Medium"},
+    {title: "Cloud Engineer", q: "Explain cloud storage options", keywords: "storage, S3, block, object, file, database, archive", dif: "Medium"},
+    {title: "Cloud Engineer", q: "How do you implement disaster recovery in the cloud?", keywords: "disaster recovery, backup, replication, RTO, RPO, failover", dif: "Hard"},
+    {title: "Cloud Engineer", q: "What is cloud migration and what are the challenges?", keywords: "migration, strategy, lift-and-shift, refactor, challenges, planning", dif: "Hard"},
+    
+    # Database Administrator (10 questions)
+    {title: "Database Administrator", q: "What database systems have you worked with?", keywords: "MySQL, PostgreSQL, Oracle, SQL Server, MongoDB, database", dif: "Easy"},
+    {title: "Database Administrator", q: "How do you optimize database performance?", keywords: "optimization, indexing, query, tuning, performance, monitoring", dif: "Hard"},
+    {title: "Database Administrator", q: "Explain database backup and recovery strategies", keywords: "backup, recovery, full, incremental, differential, restoration", dif: "Medium"},
+    {title: "Database Administrator", q: "What is database replication?", keywords: "replication, master, slave, synchronization, availability, copies", dif: "Medium"},
+    {title: "Database Administrator", q: "How do you ensure database security?", keywords: "security, permissions, encryption, auditing, access control, compliance", dif: "Medium"},
+    {title: "Database Administrator", q: "Explain ACID properties in databases", keywords: "ACID, atomicity, consistency, isolation, durability, transactions", dif: "Hard"},
+    {title: "Database Administrator", q: "What is database sharding?", keywords: "sharding, partitioning, horizontal, scalability, distributed", dif: "Hard"},
+    {title: "Database Administrator", q: "How do you monitor database health?", keywords: "monitoring, performance, metrics, logs, alerts, tools", dif: "Medium"},
+    {title: "Database Administrator", q: "What is the difference between clustered and non-clustered indexes?", keywords: "clustered, non-clustered, index, performance, physical, logical", dif: "Medium"},
+    {title: "Database Administrator", q: "How do you handle database migrations?", keywords: "migration, planning, testing, downtime, rollback, validation", dif: "Hard"},
+    
+    # Network Engineer (10 questions)
+    {title: "Network Engineer", q: "Explain the OSI model", keywords: "OSI, layers, physical, data link, network, transport, application", dif: "Medium"},
+    {title: "Network Engineer", q: "What is the difference between TCP and UDP?", keywords: "TCP, UDP, protocol, reliable, connectionless, transport", dif: "Medium"},
+    {title: "Network Engineer", q: "How do you troubleshoot network connectivity issues?", keywords: "troubleshooting, ping, traceroute, logs, tools, methodology", dif: "Medium"},
+    {title: "Network Engineer", q: "What is subnetting and why is it used?", keywords: "subnetting, IP, network, segmentation, CIDR, efficiency", dif: "Hard"},
+    {title: "Network Engineer", q: "Explain VPN and its types", keywords: "VPN, virtual, private, tunneling, site-to-site, remote access", dif: "Medium"},
+    {title: "Network Engineer", q: "What is DNS and how does it work?", keywords: "DNS, domain, name, resolution, IP, records", dif: "Easy"},
+    {title: "Network Engineer", q: "How do you secure a network?", keywords: "security, firewall, IDS, IPS, encryption, policies, access", dif: "Hard"},
+    {title: "Network Engineer", q: "What is VLAN and why is it important?", keywords: "VLAN, virtual, LAN, segmentation, broadcast, isolation", dif: "Medium"},
+    {title: "Network Engineer", q: "Explain routing protocols", keywords: "routing, protocol, OSPF, BGP, RIP, dynamic, static", dif: "Hard"},
+    {title: "Network Engineer", q: "What tools do you use for network monitoring?", keywords: "monitoring, Wireshark, Nagios, PRTG, tools, analysis", dif: "Easy"},
+    
+    # Financial Analyst (10 questions)
+    {title: "Financial Analyst", q: "What financial modeling techniques do you use?", keywords: "modeling, DCF, valuation, forecasting, Excel, financial", dif: "Hard"},
+    {title: "Financial Analyst", q: "Explain financial statements and their importance", keywords: "financial statements, balance sheet, income, cash flow, analysis", dif: "Medium"},
+    {title: "Financial Analyst", q: "How do you perform variance analysis?", keywords: "variance, analysis, budget, actual, deviation, investigation", dif: "Medium"},
+    {title: "Financial Analyst", q: "What is NPV and how do you calculate it?", keywords: "NPV, net present value, cash flows, discount, investment", dif: "Hard"},
+    {title: "Financial Analyst", q: "How do you assess investment opportunities?", keywords: "investment, ROI, risk, return, analysis, due diligence", dif: "Medium"},
+    {title: "Financial Analyst", q: "Explain ratio analysis", keywords: "ratio, liquidity, profitability, leverage, efficiency, financial", dif: "Medium"},
+    {title: "Financial Analyst", q: "What tools do you use for financial analysis?", keywords: "Excel, Bloomberg, SAP, financial, tools, software", dif: "Easy"},
+    {title: "Financial Analyst", q: "How do you create financial forecasts?", keywords: "forecast, projection, assumptions, historical, trends, analysis", dif: "Medium"},
+    {title: "Financial Analyst", q: "What is working capital management?", keywords: "working capital, current assets, liabilities, liquidity, operations", dif: "Medium"},
+    {title: "Financial Analyst", q: "How do you stay updated with financial regulations?", keywords: "regulations, compliance, updates, research, standards, learning", dif: "Easy"},
+    
+    # Product Manager (10 questions)
+    {title: "Product Manager", q: "How do you prioritize product features?", keywords: "prioritization, roadmap, value, impact, resources, framework", dif: "Medium"},
+    {title: "Product Manager", q: "Explain the product development lifecycle", keywords: "lifecycle, ideation, development, launch, iteration, feedback", dif: "Medium"},
+    {title: "Product Manager", q: "How do you gather and analyze user feedback?", keywords: "feedback, user research, surveys, interviews, data, insights", dif: "Medium"},
+    {title: "Product Manager", q: "What is a product roadmap and how do you create one?", keywords: "roadmap, strategy, timeline, features, stakeholder, vision", dif: "Medium"},
+    {title: "Product Manager", q: "How do you define product success metrics?", keywords: "metrics, KPI, success, measurement, goals, analytics", dif: "Medium"},
+    {title: "Product Manager", q: "Explain the concept of MVP", keywords: "MVP, minimum viable product, testing, iteration, validation", dif: "Easy"},
+    {title: "Product Manager", q: "How do you work with engineering and design teams?", keywords: "collaboration, communication, cross-functional, alignment, agile", dif: "Medium"},
+    {title: "Product Manager", q: "What frameworks do you use for product management?", keywords: "framework, OKR, RICE, Kano, prioritization, strategy", dif: "Hard"},
+    {title: "Product Manager", q: "How do you handle competing stakeholder demands?", keywords: "stakeholder, negotiation, trade-offs, communication, alignment", dif: "Hard"},
+    {title: "Product Manager", q: "Describe a product you launched and its impact", keywords: "launch, product, impact, metrics, success, learnings", dif: "Medium"},
+    
+    # SEO Specialist (10 questions)
+    {title: "SEO Specialist", q: "What is on-page SEO?", keywords: "on-page, SEO, meta tags, content, keywords, optimization", dif: "Easy"},
+    {title: "SEO Specialist", q: "Explain off-page SEO strategies", keywords: "off-page, backlinks, link building, authority, domain, social", dif: "Medium"},
+    {title: "SEO Specialist", q: "How do you conduct an SEO audit?", keywords: "audit, technical, content, analysis, tools, recommendations", dif: "Medium"},
+    {title: "SEO Specialist", q: "What are Google algorithm updates and how do you adapt?", keywords: "algorithm, updates, Penguin, Panda, adapt, best practices", dif: "Medium"},
+    {title: "SEO Specialist", q: "How do you perform keyword research?", keywords: "keyword, research, volume, competition, intent, tools", dif: "Easy"},
+    {title: "SEO Specialist", q: "What is technical SEO?", keywords: "technical, site speed, crawling, indexing, schema, structure", dif: "Hard"},
+    {title: "SEO Specialist", q: "How do you measure SEO success?", keywords: "metrics, traffic, ranking, conversion, analytics, ROI", dif: "Medium"},
+    {title: "SEO Specialist", q: "What tools do you use for SEO?", keywords: "tools, Google Analytics, Search Console, Ahrefs, SEMrush", dif: "Easy"},
+    {title: "SEO Specialist", q: "Explain the importance of mobile SEO", keywords: "mobile, responsive, mobile-first, indexing, user experience", dif: "Medium"},
+    {title: "SEO Specialist", q: "How do you optimize content for voice search?", keywords: "voice search, conversational, featured snippets, questions, natural", dif: "Hard"},
+    
+    # Social Media Manager (10 questions)
+    {title: "Social Media Manager", q: "What social media platforms do you specialize in?", keywords: "platforms, Facebook, Instagram, Twitter, LinkedIn, TikTok", dif: "Easy"},
+    {title: "Social Media Manager", q: "How do you create a social media strategy?", keywords: "strategy, goals, audience, content, calendar, metrics", dif: "Medium"},
+    {title: "Social Media Manager", q: "How do you handle negative comments or a social media crisis?", keywords: "crisis, response, professional, empathy, resolution, reputation", dif: "Medium"},
+    {title: "Social Media Manager", q: "What metrics do you track for social media success?", keywords: "metrics, engagement, reach, impressions, conversion, ROI", dif: "Medium"},
+    {title: "Social Media Manager", q: "How do you increase social media engagement?", keywords: "engagement, content, community, interaction, timing, hashtags", dif: "Easy"},
+    {title: "Social Media Manager", q: "What tools do you use for social media management?", keywords: "tools, Hootsuite, Buffer, Sprout Social, scheduling, analytics", dif: "Easy"},
+    {title: "Social Media Manager", q: "How do you stay updated with social media trends?", keywords: "trends, research, platforms, learning, experimentation, industry", dif: "Easy"},
+    {title: "Social Media Manager", q: "Explain the concept of social listening", keywords: "social listening, monitoring, sentiment, brand, feedback, insights", dif: "Medium"},
+    {title: "Social Media Manager", q: "How do you create engaging visual content?", keywords: "visual, content, design, video, images, storytelling, Canva", dif: "Easy"},
+    {title: "Social Media Manager", q: "Describe a successful social media campaign you managed", keywords: "campaign, strategy, results, engagement, metrics, success", dif: "Medium"},
+    
+    # Blockchain Developer (10 questions)
+    {title: "Blockchain Developer", q: "Explain how blockchain technology works", keywords: "blockchain, distributed, ledger, blocks, consensus, immutable", dif: "Medium"},
+    {title: "Blockchain Developer", q: "What is a smart contract?", keywords: "smart contract, Ethereum, Solidity, automated, decentralized, code", dif: "Medium"},
+    {title: "Blockchain Developer", q: "What consensus mechanisms are you familiar with?", keywords: "consensus, proof of work, proof of stake, Byzantine, validation", dif: "Hard"},
+    {title: "Blockchain Developer", q: "How do you ensure security in blockchain applications?", keywords: "security, cryptography, auditing, vulnerabilities, best practices", dif: "Hard"},
+    {title: "Blockchain Developer", q: "What is the difference between public and private blockchains?", keywords: "public, private, permissionless, permissioned, access, use case", dif: "Medium"},
+    {title: "Blockchain Developer", q: "Explain cryptocurrency and tokens", keywords: "cryptocurrency, tokens, Bitcoin, Ethereum, ERC-20, utility", dif: "Easy"},
+    {title: "Blockchain Developer", q: "What development tools do you use?", keywords: "tools, Truffle, Hardhat, Remix, Web3, development", dif: "Easy"},
+    {title: "Blockchain Developer", q: "How do you handle scalability in blockchain?", keywords: "scalability, layer 2, sharding, throughput, performance", dif: "Hard"},
+    {title: "Blockchain Developer", q: "What are NFTs and how do they work?", keywords: "NFT, non-fungible, token, unique, digital, ownership", dif: "Medium"},
+    {title: "Blockchain Developer", q: "Describe a blockchain project you worked on", keywords: "project, implementation, challenges, technology, outcome, experience", dif: "Medium"},
+    
+    # Customer Support Executive (10 questions)
+    {title: "Customer Support Executive", q: "How do you handle difficult customers?", keywords: "difficult, patience, empathy, resolution, professional, calm", dif: "Medium"},
+    {title: "Customer Support Executive", q: "What is your approach to resolving customer complaints?", keywords: "complaint, listen, understand, solution, follow-up, satisfaction", dif: "Easy"},
+    {title: "Customer Support Executive", q: "How do you prioritize multiple customer requests?", keywords: "prioritization, urgency, impact, organization, time management", dif: "Medium"},
+    {title: "Customer Support Executive", q: "What customer support tools have you used?", keywords: "tools, Zendesk, Freshdesk, CRM, ticketing, helpdesk", dif: "Easy"},
+    {title: "Customer Support Executive", q: "How do you measure customer satisfaction?", keywords: "satisfaction, CSAT, NPS, feedback, surveys, metrics", dif: "Medium"},
+    {title: "Customer Support Executive", q: "Describe a time when you exceeded customer expectations", keywords: "exceed, exceptional, service, satisfaction, example, impact", dif: "Easy"},
+    {title: "Customer Support Executive", q: "How do you stay calm under pressure?", keywords: "pressure, composure, stress management, focus, techniques", dif: "Easy"},
+    {title: "Customer Support Executive", q: "What is your communication style with customers?", keywords: "communication, clear, friendly, professional, empathy, listening", dif: "Easy"},
+    {title: "Customer Support Executive", q: "How do you handle escalations?", keywords: "escalation, procedure, supervisor, resolution, documentation", dif: "Medium"},
+    {title: "Customer Support Executive", q: "Why is customer retention important?", keywords: "retention, loyalty, lifetime value, satisfaction, business, growth", dif: "Easy"},
+    
+    # Operations Manager (10 questions)
+    {title: "Operations Manager", q: "How do you improve operational efficiency?", keywords: "efficiency, process, optimization, lean, continuous improvement", dif: "Medium"},
+    {title: "Operations Manager", q: "What is your experience with supply chain management?", keywords: "supply chain, logistics, inventory, procurement, vendors", dif: "Medium"},
+    {title: "Operations Manager", q: "How do you manage operational budgets?", keywords: "budget, cost control, forecasting, variance, resources", dif: "Medium"},
+    {title: "Operations Manager", q: "Explain Six Sigma or Lean methodologies", keywords: "Six Sigma, Lean, DMAIC, waste, quality, improvement", dif: "Hard"},
+    {title: "Operations Manager", q: "How do you handle operational crises?", keywords: "crisis, contingency, decision-making, communication, resolution", dif: "Hard"},
+    {title: "Operations Manager", q: "What KPIs do you track for operations?", keywords: "KPI, metrics, performance, efficiency, productivity, quality", dif: "Medium"},
+    {title: "Operations Manager", q: "How do you manage and motivate your team?", keywords: "leadership, motivation, team, communication, development, culture", dif: "Easy"},
+    {title: "Operations Manager", q: "What tools do you use for operations management?", keywords: "tools, ERP, project management, analytics, automation", dif: "Easy"},
+    {title: "Operations Manager", q: "How do you ensure quality control?", keywords: "quality, control, standards, inspection, testing, compliance", dif: "Medium"},
+    {title: "Operations Manager", q: "Describe a process improvement initiative you led", keywords: "improvement, initiative, process, results, implementation, impact", dif: "Medium"},
+    
+    # E-commerce Manager (10 questions)
+    {title: "E-commerce Manager", q: "What e-commerce platforms have you worked with?", keywords: "platform, Shopify, WooCommerce, Magento, Amazon, e-commerce", dif: "Easy"},
+    {title: "E-commerce Manager", q: "How do you optimize conversion rates?", keywords: "conversion, optimization, CRO, testing, UX, funnel", dif: "Medium"},
+    {title: "E-commerce Manager", q: "Explain your approach to inventory management", keywords: "inventory, stock, management, forecasting, SKU, supply", dif: "Medium"},
+    {title: "E-commerce Manager", q: "How do you handle customer acquisition and retention?", keywords: "acquisition, retention, marketing, loyalty, CAC, LTV", dif: "Medium"},
+    {title: "E-commerce Manager", q: "What metrics do you track for e-commerce success?", keywords: "metrics, revenue, conversion, AOV, cart abandonment, ROI", dif: "Medium"},
+    {title: "E-commerce Manager", q: "How do you improve user experience on e-commerce sites?", keywords: "UX, navigation, checkout, mobile, speed, personalization", dif: "Medium"},
+    {title: "E-commerce Manager", q: "What is your strategy for product listings and descriptions?", keywords: "product, listing, SEO, description, images, optimization", dif: "Easy"},
+    {title: "E-commerce Manager", q: "How do you manage payment gateways and security?", keywords: "payment, gateway, security, PCI, fraud, encryption", dif: "Medium"},
+    {title: "E-commerce Manager", q: "Explain your email marketing strategy for e-commerce", keywords: "email, marketing, automation, segmentation, campaigns, retention", dif: "Medium"},
+    {title: "E-commerce Manager", q: "How do you analyze and use customer data?", keywords: "data, analytics, customer behavior, insights, personalization", dif: "Hard"},
+    
+    # AI Researcher (10 questions)
+    {title: "AI Researcher", q: "What areas of AI research are you most interested in?", keywords: "research, NLP, computer vision, reinforcement learning, GANs", dif: "Easy"},
+    {title: "AI Researcher", q: "Explain your experience with neural network architectures", keywords: "neural networks, CNN, RNN, transformer, architecture, deep learning", dif: "Hard"},
+    {title: "AI Researcher", q: "How do you approach a new research problem?", keywords: "research, literature review, hypothesis, experimentation, methodology", dif: "Medium"},
+    {title: "AI Researcher", q: "What machine learning frameworks do you use?", keywords: "TensorFlow, PyTorch, frameworks, implementation, experimentation", dif: "Easy"},
+    {title: "AI Researcher", q: "How do you evaluate research results?", keywords: "evaluation, metrics, benchmarks, statistical significance, validation", dif: "Hard"},
+    {title: "AI Researcher", q: "Explain the concept of few-shot learning", keywords: "few-shot, learning, meta-learning, limited data, generalization", dif: "Hard"},
+    {title: "AI Researcher", q: "What are the ethical considerations in AI research?", keywords: "ethics, bias, fairness, privacy, accountability, responsible AI", dif: "Medium"},
+    {title: "AI Researcher", q: "How do you stay current with AI research developments?", keywords: "papers, conferences, arXiv, collaboration, reading, community", dif: "Easy"},
+    {title: "AI Researcher", q: "Describe a research paper you recently published or read", keywords: "research, paper, methodology, results, contribution, insights", dif: "Medium"},
+    {title: "AI Researcher", q: "What is the future direction of AI research?", keywords: "future, AGI, interpretability, efficiency, multimodal, trends", dif: "Hard"},
+    
+    # Copywriter (10 questions)
+    {title: "Copywriter", q: "What is your copywriting process?", keywords: "process, research, brief, drafting, revision, testing", dif: "Easy"},
+    {title: "Copywriter", q: "How do you write persuasive copy?", keywords: "persuasive, benefits, emotional, call-to-action, urgency, value", dif: "Medium"},
+    {title: "Copywriter", q: "Explain the difference between B2B and B2C copywriting", keywords: "B2B, B2C, tone, audience, decision-making, messaging", dif: "Medium"},
+    {title: "Copywriter", q: "How do you write compelling headlines?", keywords: "headline, attention, curiosity, benefit, clarity, testing", dif: "Easy"},
+    {title: "Copywriter", q: "What is direct response copywriting?", keywords: "direct response, action, conversion, measurable, sales, urgency", dif: "Medium"},
+    {title: "Copywriter", q: "How do you adapt copy for different channels?", keywords: "channels, adaptation, email, social, web, format, audience", dif: "Medium"},
+    {title: "Copywriter", q: "What copywriting frameworks do you use?", keywords: "framework, AIDA, PAS, FAB, structure, formula", dif: "Medium"},
+    {title: "Copywriter", q: "How do you incorporate SEO into copywriting?", keywords: "SEO, keywords, natural, readability, optimization, search", dif: "Medium"},
+    {title: "Copywriter", q: "Describe a successful copy campaign you created", keywords: "campaign, copy, results, strategy, conversion, success", dif: "Easy"},
+    {title: "Copywriter", q: "How do you test and optimize copy performance?", keywords: "testing, A/B, optimization, metrics, iteration, improvement", dif: "Medium"},
+]
+
+# Create DataFrame
+df = pd.DataFrame(dataset)
+
+# Save as CSV
+df.to_csv("HR_Interview_Questions.csv", index=False)
+
+print(f"✅ CSV dataset created successfully!")
+print(f"📊 Total Questions: {len(df)}")
+print(f"💼 Total Job Roles: {df['Job_Title'].nunique()}")
+print(f"\n📋 Questions per Job Role:")
+print(df['Job_Title'].value_counts().sort_index())
+print(f"\n🎯 Difficulty Distribution:")
+print(df['Difficulty'].value_counts())
+print(f"\n✨ Sample data:")
+print(df.head(10))
